@@ -6,6 +6,7 @@
 from scene import *
 import ui
 
+from game_scene import *
 
 class MainMenuScene(Scene):
     def setup(self):
@@ -16,7 +17,19 @@ class MainMenuScene(Scene):
                                      color = 'white', 
                                      parent = self, 
                                      size = self.size)
-    
+                                     
+        self.start_button = SpriteNode('./assets/sprites/start.png',
+                                       parent = self,
+                                       position = self.size/2,
+                                       scale = 0.75)
+                                       
+        logo_position = Vector2()
+        logo_position.x = 500
+        logo_position.y = 600
+        self.logo = SpriteNode('./assets/sprites/DKM.JPG',
+                                      parent = self,
+                                      position = logo_position,
+                                      scale = 0.15)
     def update(self):
         # this method is called, hopefully, 60 times a second
         pass
@@ -31,7 +44,8 @@ class MainMenuScene(Scene):
     
     def touch_ended(self, touch):
         # this method is called, when user releases a finger from the screen
-        pass
+        if self.start_button.frame.contains_point(touch.location):
+            self.present_modal_scene(GScene())
     
     def did_change_size(self):
         # this method is called, when user changes the orientation of the screen

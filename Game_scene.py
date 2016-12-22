@@ -82,28 +82,27 @@ class GScene(Scene):
         # this method is called, hopefully, 60 times a second
         
         # move spaceship if button down
+        
         if self.left_button_down == True:
-            chrMove = Action.move_by(-1*self.chr_move_speed, 
+            chrMove = Action.move_by(-self.chr_move_speed, 
                                            0.0, 
                                            0.1)
             self.chr.run_action(chrMove)
         
         if self.right_button_down == True:
-            chrMove = Action.move_by(self.chr_move_speed, 
-                                           0.0, 
-                                           0.1)
+            chrMove = Action.move_by(self.chr_move_speed,
+                                          0.0, 
+                                          0.1)
             self.chr.run_action(chrMove)
     
         if self.down_button_down == True:
-            chrMove = Action.move_by(-1*self.chr_move_speed,
-                                           0.0,
-                                           0.1)
+            chrMove = Action.move_by(0.0, -self.chr_move_speed, 0.0)
+            
             self.chr.run_action(chrMove)
         
         if self.up_button_down == True:
-            chrMove = Action.move_by(1/self.chr_move_speed,
-                                           0.0,
-                                           0.1)
+            chrMove = Action.move_by(0.0, self.chr_move_speed, 0.0)
+            
             self.chr.run_action(chrMove)
             
     def touch_began(self, touch):

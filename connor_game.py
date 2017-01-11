@@ -21,10 +21,12 @@ class ConnorGame(Scene):
         self.down_button_down = False
         self.up_button_down = False
         self.chr_move_speed = 20.0
-        self.attacks = []
-        self.attack_rate = 1
+        self.daggers = []
+        self.dagger_throw_rate = 1
         self.attack_speed = 20.0
         self.scale_size = 0.75
+        self.score = 0
+        self.dead = False
         
         # add background color
         background_position = Vector2(self.screen_center_x, 
@@ -78,6 +80,13 @@ class ConnorGame(Scene):
                                      alpha = 0.5,
                                      scale = self.scale_size)
         
+        self.score_position.x = 100
+        self.score_position.y = self.size_of_screen_y - 50
+        self.score_label = LabelNode(text = 'Score: 0',
+                                     font = ('Helvetica', 40),
+                                     parent = self, 
+                                     position = self.score_position)
+        
     def update(self):
         # this method is called, hopefully, 60 times a second
         
@@ -105,6 +114,39 @@ class ConnorGame(Scene):
             
             self.chr.run_action(chrMove)
             
+        # create more knives when there is none on the screen
+        
+        dagger_throw_chance = random.randint(1,120)
+        if dagger_throw_chance <= dagger_throw_rate:
+            self.throw_dagger()
+        
+        # when a dagger leaves the screen, remove it from the array
+        for dagger in self.daggers:
+            if dagger.position.y < -50:
+                dagger.remove_from_parent()
+                self.daggers.remove(dagger)
+        
+        # If a dagger touches the character.
+        if len(self.daggers) > 0:
+            for dagger_hit in self.daggers:
+                if dagger_hit.frame.intersects(self.chr.frame):
+                    self.chr.remove_from_parent()
+                    dagger_hit.remove_from_parent()
+                    self.daggers.remove(dagger_hit)
+                
+                # game over, show button that takes you back to character select.
+                
+                    self.dead = True
+                    self.back_button = SpriteNode('./assets/sprites/back_button.png',
+                                                  parent = self,
+                                                  position = Vector2(self.screen_center_x,
+                                                                     self.screen_center_y),
+                                                  alpha = 1.0,
+                                                  scale = self.scale_size)
+        else:
+            pass
+        
+        
     def touch_began(self, touch):
         # this method is called, when user touches the screen
         
@@ -149,26 +191,26 @@ class ConnorGame(Scene):
         # back into use. Reload anything you might need.
         pass
     
-    def add_attack(self):
-        # add a new alien to come down
+    def throw_dagger(self):
+        # dagger spawns and moves across the screen.
         
-        att_start_position = Vector2()
-        att_start_position.x = random.randint(100, 
+        dagger_start_position = Vector2()
+        dagger_start_position.x = random.randint(100, 
                                          self.size_of_screen_x - 100)
-        att_start_position.y = self.size_of_screen_y + 100
+        dagger_start_position.y = self.size_of_screen_y + 100
         
-        att_end_position = Vector2()
-        att_end_position.x = random.randint(100, 
-                                        self.size_of_screen_x - 100)
-        att_end_position.y = -100
+        dagger_end_position = Vector2()
+        dagger_end_position.x = self.size_of_screen_x
         
-        self.attacks.append(SpriteNode('./assets/sprites/alien.png',
-                             position = att_start_position,
+        dagger_end_position.y = -100
+        
+        self.attacks.append(SpriteNode('./assets/sprites/knife.PNG',
+                             position = dagger_start_position,
                              parent = self))
         
         # make missile move forward
-        attMoveAction = Action.move_to(att_end_position.x, 
-                                         att_end_position.y, 
+        daggerMoveAction = Action.move_to(dagger_end_position.x, 
+                                         dagger_end_position.y, 
                                          self.attack_speed,
                                          TIMING_SINODIAL)
-        self.attacks[len(self.attacks)-1].run_action(attMoveAction)
+        self.attacks[len(self.attacks)-1].run_action(daggerMoveAction)

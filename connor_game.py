@@ -1,7 +1,4 @@
-# Created by: Mr. Coxall
-# Created on: Sep 2016
-# Created for: ICS3U
-# This scene shows the main game.
+
 
 import sound
 from scene import *

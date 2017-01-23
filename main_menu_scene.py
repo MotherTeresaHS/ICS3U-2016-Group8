@@ -6,11 +6,16 @@
 from scene import *
 import ui
 
-from game_scene import *
+from character_select_scene import *
 
 class MainMenuScene(Scene):
     def setup(self):
         # this method is called, when user moves to this scene
+        
+        self.size_of_screen_x = self.size.x
+        self.size_of_screen_y = self.size.y
+        self.screen_center_x = self.size_of_screen_x/2
+        self.screen_center_y = self.size_of_screen_y/2
         
         # add MT blue background color
         self.background = SpriteNode(position = self.size / 2, 
@@ -24,12 +29,12 @@ class MainMenuScene(Scene):
                                        scale = 0.75)
                                        
         logo_position = Vector2()
-        logo_position.x = 500
-        logo_position.y = 600
-        self.logo = SpriteNode('./assets/sprites/DKM.JPG',
+        logo_position.x = self.screen_center_x
+        logo_position.y = self.screen_center_y + 100
+        self.logo = SpriteNode('./assets/sprites/DKM_dark.PNG',
                                       parent = self,
                                       position = logo_position,
-                                      scale = 0.15)
+                                      scale = 0.75)
     def update(self):
         # this method is called, hopefully, 60 times a second
         pass
@@ -45,7 +50,7 @@ class MainMenuScene(Scene):
     def touch_ended(self, touch):
         # this method is called, when user releases a finger from the screen
         if self.start_button.frame.contains_point(touch.location):
-            self.present_modal_scene(GScene())
+            self.present_modal_scene(CharacterSelectScene())
     
     def did_change_size(self):
         # this method is called, when user changes the orientation of the screen

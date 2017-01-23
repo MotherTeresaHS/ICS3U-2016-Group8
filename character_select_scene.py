@@ -3,7 +3,7 @@
 from scene import *
 import ui
 
-from connor_game import *
+from connor_game_b import *
 from john_game import *
 from sheldon_game import *
 from kyle_game import *
@@ -18,27 +18,27 @@ class CharacterSelectScene(Scene):
                                      parent = self,
                                      size = self.size)
         
-        blue_block_button_position = self.size/2
-        blue_block_button_position.y = blue_block_button_position.y - 80
-        self.blue_block_button = SpriteNode('./assets/sprites/blue_block.PNG',
+        john_button_position = self.size/2
+        john_button_position.y = john_button_position.y - 80
+        self.john_button = SpriteNode('./assets/sprites/blue_block.PNG',
                                             parent = self,
-                                            position = blue_block_button_position,
+                                            position = john_button_position,
                                             scale = 0.30)
         
-        frog_button_position = self.size/2
-        frog_button_position.y = frog_button_position.y - 200
-        frog_button_position.x = frog_button_position.x - 150
-        self.frog_button = SpriteNode('./assets/sprites/CHR.PNG',
+        connor_button_position = self.size/2
+        connor_button_position.y = connor_button_position.y - 200
+        connor_button_position.x = connor_button_position.x - 150
+        self.connor_button = SpriteNode('./assets/sprites/connor.PNG',
                                       parent = self,
-                                      position = frog_button_position,
+                                      position = connor_button_position,
                                       scale = 0.30)
         
-        snake_button_position = self.size/2
-        snake_button_position.y = snake_button_position.y - 200
-        snake_button_position.x = snake_button_position.x + 150
-        self.snake_button = SpriteNode('./assets/sprites/snake.PNG',
+        sheldon_button_position = self.size/2
+        sheldon_button_position.y = sheldon_button_position.y - 200
+        sheldon_button_position.x = sheldon_button_position.x + 150
+        self.sheldon_button = SpriteNode('./assets/sprites/sheldon.PNG',
                                        parent = self,
-                                       position = snake_button_position,
+                                       position = sheldon_button_position,
                                        scale = 0.30)
         
         back_button_position = self.size/2
@@ -49,20 +49,20 @@ class CharacterSelectScene(Scene):
                                       position = back_button_position,
                                       scale = 0.50)
         
-        tim_button_position = self.size/2
-        tim_button_position.y = tim_button_position.y - 80
-        tim_button_position.x = tim_button_position.x + 300
-        self.tim_button = SpriteNode('./assets/sprites/tim.PNG',
+        kyle_button_position = self.size/2
+        kyle_button_position.y = kyle_button_position.y - 80
+        kyle_button_position.x = kyle_button_position.x + 300
+        self.kyle_button = SpriteNode('./assets/sprites/kyle.PNG',
                                      parent = self,
-                                     position = tim_button_position,
+                                     position = kyle_button_position,
                                      scale = 0.30)
         
-        girl_button_position = self.size/2
-        girl_button_position.y = girl_button_position.y - 80
-        girl_button_position.x = girl_button_position.x - 300
-        self.girl_button = SpriteNode('./assets/sprites/girl.PNG',
+        margie_button_position = self.size/2
+        margie_button_position.y = margie_button_position.y - 80
+        margie_button_position.x = margie_button_position.x - 300
+        self.margie_button = SpriteNode('./assets/sprites/margie.PNG',
                                       parent = self,
-                                      position = girl_button_position,
+                                      position = margie_button_position,
                                       scale = 0.30)
         
     def update(self):
@@ -79,22 +79,22 @@ class CharacterSelectScene(Scene):
     
     def touch_ended(self, touch):
         # this method is called, when user releases a finger from the screen
-        if self.blue_block_button.frame.contains_point(touch.location):
+        if self.john_button.frame.contains_point(touch.location):
             self.present_modal_scene(JohnGame())
         
-        if self.frog_button.frame.contains_point(touch.location):
+        if self.connor_button.frame.contains_point(touch.location):
             self.present_modal_scene(ConnorGame())
         
-        if self.snake_button.frame.contains_point(touch.location):
+        if self.sheldon_button.frame.contains_point(touch.location):
             self.present_modal_scene(SheldonGame())
         
         if self.back_button.frame.contains_point(touch.location):
             self.dismiss_modal_scene()
         
-        if self.tim_button.frame.contains_point(touch.location):
+        if self.kyle_button.frame.contains_point(touch.location):
             self.present_modal_scene(KyleGame())
         
-        if self.girl_button.frame.contains_point(touch.location):
+        if self.margie_button.frame.contains_point(touch.location):
             self.present_modal_scene(MargieGame())
     
     def did_change_size(self):

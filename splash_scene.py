@@ -20,13 +20,12 @@ class SplashScene(Scene):
         
         # add MT blue background color
         self.background = SpriteNode(position = self.size / 2, 
-                                     color = (0.61, 0.78, 0.87), 
+                                     color = ('black'), 
                                      parent = self, 
                                      size = self.size)
-        self.school_crest = SpriteNode('./assets/sprites/MT_Crest.jpg',
+        self.school_crest = SpriteNode('./assets/sprites/CJP.PNG',
                                        parent = self,
                                        position = self.size/2)
-    
     def update(self):
         # this method is called, hopefully, 60 times a second
         
